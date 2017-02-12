@@ -10,14 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_printf(const char * restrict format, ...)
+static void	init_attr(t_attr *attr)
 {
-	va_list args;
-	unsigned int ret;
-	void *vide;
+	ft_bzero(attr->attributes, 6);
+	ft_bzero(attr->flags, 7);
+	attr->fieldwidth = 0;
+	attr->dot_prec = 0;
+	attr->precision = -1;
+}
 
-	vide = va_start(args, format);
-	ret = 3;
-	printf("%s\n", (char *)vide);
+int			ft_printf(const char * restrict format, ...)
+{
+	va_list	ap;
+	t_attr	attr;
+	int		i;
+
+	i = -1;
+	va_start(ap, format);
+	while (format[++i] != '\0')
+	{
+
+		if (format[i] == '%')
+		{
+			init_attr(&attr);
+			i += find_conversion(format, i, &attr);
+		}
+		else
+			ft_putchar(format[i]);
+	}
+	va_end(ap);
 	return (ret);
 }
