@@ -75,7 +75,7 @@ static int	find_length_mod(const char * restrict format, int i, t_attr *attr)
 				i += 1;
 			}
 			else
-				attr->lenght_mod[j] = format[i];
+				attr->length_mod[j] = format[i];
 			j++;
 		}
 		i++;
